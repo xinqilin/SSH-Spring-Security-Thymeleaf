@@ -1,8 +1,10 @@
 package com.bill.sshAndSecurity.service;
 
-import org.springframework.stereotype.Service;
+import com.bill.sshAndSecurity.dto.UserRegistrationDto;
+import com.bill.sshAndSecurity.model.User;
 
-@Service
+
 public interface UserService {
 
+	public User save(UserRegistrationDto registrationDto);
 }

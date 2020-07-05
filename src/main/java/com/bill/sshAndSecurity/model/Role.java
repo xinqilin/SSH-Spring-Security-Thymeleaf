@@ -7,8 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+//@Data
+@Setter
+@Getter
 @Entity
 @Table(name="role")
 public class Role {
@@ -17,5 +21,11 @@ public class Role {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	public Role(String name) {
+		super();
+		this.name = name;
+	}
+	
+	
 	
 }
