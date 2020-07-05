@@ -221,3 +221,61 @@ th:with屬性允許重用變量定義在相同的屬性:
 ```
 
 原文網址：<a href="https://kknews.cc/code/y8barvk.html">https://kknews.cc/code/y8barvk.html</a>
+
+
+
+### @ModelAttribute
+
+1.用在控制器的方法上：
+
+每次執行方法時都會先執行@ModelAttribute註解的方法，放入結果添加到model中
+
+```java
+
+@ModelAttribute("top")
+public Map top(){
+    return pageTop.getDataMap();
+}
+
+@RequestMapping({"", "/", "/home"})
+public String home(@RequestBody(required = false) Map<String, Object> param, Model model) {
+    model.addAttribute("model", dataAssembly.homePageData(param));
+    return "home";
+}
+```
+執行home（）前先執行top（）將頂部模塊數據放到模型。
+在首頁返回的視圖中包含top值，可以直接在頁面獲取。
+
+2.用在方法的参數上：
+
+
+```java
+@RequestMapping("/test")
+public String test(@ModelAttribute("top") Map top, Model model) {
+    JSONArray ja  = JSONArray.fromObject(map);
+    return "test";
+}
+
+
+```
+可以直接從參數中取值
+
+3.用在ControllerAdvice的方法中：
+
+```java
+
+@ControllerAdvice
+public class GlobalModelData {
+    @ModelAttribute
+    public Object globalUser() {
+        User user = new User();
+        user.setUn("xxx");
+        return user;
+        *//*这里在controller执行前将返回值填充到model中,则可以在model中获取数据*//*
+    } 
+}
+
+```
+
+每個Controller中的方法執行前都會先執行@ModelAttribute註解標註的方法，將返回值添加到model
+
