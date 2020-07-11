@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bill.sshAndSecurity.dto.UserRegistrationDto;
@@ -20,8 +21,12 @@ import com.bill.sshAndSecurity.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService{
 
+	
 	@Autowired
 	public UserRepository userRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pwdEncoder;
 	
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
@@ -30,7 +35,8 @@ public class UserServiceImpl implements UserService{
 				registrationDto.getFirstName(),
 				registrationDto.getLastName(),
 				registrationDto.getEmail(),
-				registrationDto.getPassword(),
+				pwdEncoder.encode(registrationDto.getPassword()),//加密
+//				registrationDto.getPassword(),
 				Arrays.asList(new Role("ROLE_USER"))
 				);
 		
