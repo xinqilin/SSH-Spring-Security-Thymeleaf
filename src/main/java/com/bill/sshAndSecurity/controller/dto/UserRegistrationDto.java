@@ -1,4 +1,4 @@
-package com.bill.sshAndSecurity.dto;
+package com.bill.sshAndSecurity.controller.dto;
 
 import lombok.Data;
 

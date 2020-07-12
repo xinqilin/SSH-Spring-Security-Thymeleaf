@@ -2,7 +2,7 @@ package com.bill.sshAndSecurity.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.bill.sshAndSecurity.dto.UserRegistrationDto;
+import com.bill.sshAndSecurity.controller.dto.UserRegistrationDto;
 import com.bill.sshAndSecurity.model.User;
 
 

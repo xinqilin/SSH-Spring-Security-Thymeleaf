@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bill.sshAndSecurity.dto.UserRegistrationDto;
+import com.bill.sshAndSecurity.controller.dto.UserRegistrationDto;
 import com.bill.sshAndSecurity.model.Role;
 import com.bill.sshAndSecurity.model.User;
 import com.bill.sshAndSecurity.repository.UserRepository;
@@ -45,13 +45,15 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user=userRepository.findByEmail(username);
-		if(user==null)
-			throw new UsernameNotFoundException("帳號或密碼錯誤");
-		return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+	
+		User user = userRepository.findByEmail(username);
+		if(user == null) {
+			throw new UsernameNotFoundException("Invalid username or password.");
+		}
+		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));		
 	}
-
-	private Collection<SimpleGrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+	
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
 }

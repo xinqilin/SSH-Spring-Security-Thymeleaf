@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bill.sshAndSecurity.dto.UserRegistrationDto;
+import com.bill.sshAndSecurity.controller.dto.UserRegistrationDto;
 import com.bill.sshAndSecurity.service.UserService;
 
 @Controller

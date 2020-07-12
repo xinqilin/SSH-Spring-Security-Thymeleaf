@@ -15,10 +15,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
-@Data
+//@Data
+@Setter
+@Getter
 @Entity
 @Table(name="user",uniqueConstraints=@UniqueConstraint(columnNames="email"))
 public class User {
@@ -43,6 +49,7 @@ public class User {
 				joinColumns=@JoinColumn(name="user_id",referencedColumnName="id"),
 				inverseJoinColumns=@JoinColumn(name="role_id",referencedColumnName="id")
 			)
+	@JsonIgnore
 	private Collection<Role> roles;
 	
 	public User() {
